@@ -16,7 +16,7 @@ const VerifyToken = async (req, res, next) => {
   }
   let key = jwtSecret;
   try {
-    let decode = await jwt.verify(token, key);
+    let decode = jwt.verify(token, key);
     req.user = decode;
     next();
   } catch (error) {
@@ -25,8 +25,8 @@ const VerifyToken = async (req, res, next) => {
 };
 
 const VerifyLastToken = (req, res, next) => {
-  const { timecreated, id } = req.user;
-  let isiCache = myCache.get(id);
+  const { timecreated, email } = req.user;
+  let isiCache = myCache.get(email);
   if (timecreated === isiCache.timecreated) {
     next();
   } else {

@@ -27,6 +27,26 @@ const Register = async (req, res) => {
   }
 };
 
+const VerifyAccount = async (req, res) => {
+  try {
+    await userService.VerifyAccount({ email: req.user.email });
+    return res.status(200).send({
+      success: true,
+      data: {
+        email: req.user.email,
+      },
+      message: "Account successfully verified",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      data: null,
+      message: ErrConst.ErrorInternalServer,
+    });
+  }
+};
+
 module.exports = {
   Register,
+  VerifyAccount,
 };

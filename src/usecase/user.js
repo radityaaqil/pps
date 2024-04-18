@@ -46,10 +46,20 @@ const Register = async (userData) => {
       token: tokenAccess,
     };
   } catch (error) {
-    return error;
+    throw error;
+  }
+};
+
+const VerifyAccount = async (userData) => {
+  userData.is_verified = true;
+  try {
+    await userRepo.Update(userData);
+  } catch (error) {
+    throw error;
   }
 };
 
 module.exports = {
   Register,
+  VerifyAccount,
 };

@@ -28,9 +28,12 @@ const Insert = async (data) => {
     ];
     await db.query(query, values);
   } catch (error) {
-    return error;
+    throw error;
+  } finally {
+    if (db) {
+      db.release();
+    }
   }
-  db.release();
 
   return;
 };
@@ -43,9 +46,12 @@ const GetByNameOrEmail = async (name, email) => {
     values = [name, email];
     result = await db.query(query, values);
   } catch (error) {
-    return error;
+    throw error;
+  } finally {
+    if (db) {
+      db.release();
+    }
   }
-  db.release();
 
   return result;
 };
@@ -59,15 +65,48 @@ const GetByID = async (id) => {
     result = await db.query(query, values);
   } catch (error) {
     console.log(error);
-    return error;
+    throw error;
+  } finally {
+    if (db) {
+      db.release();
+    }
   }
-  db.release();
 
   return result;
+};
+
+const Update = async (data) => {
+  let db, query, values;
+  try {
+    db = await dbConfig.pool.connect();
+
+    // Check which column needs to be updated
+    const keys = Object.keys(data);
+    const setClause = keys
+      .map((key, index) => {
+        return `${key} = $${index + 1}`;
+      })
+      .join(", ");
+
+    query = `UPDATE "user" SET ${setClause} WHERE email = $${keys.length + 1}`;
+    values = Object.values(data);
+    values.push(data.email);
+
+    await db.query(query, values);
+  } catch (error) {
+    throw error;
+  } finally {
+    if (db) {
+      db.release();
+    }
+  }
+
+  return;
 };
 
 module.exports = {
   GetByNameOrEmail,
   GetByID,
   Insert,
+  Update,
 };
