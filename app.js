@@ -1,12 +1,17 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const port = process.env.PORT
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const port = process.env.PORT;
+const { userRoutes } = require("./src/routes");
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send({ success: true, data: null, message: "Service Running" });
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Service listening on port ${port}`);
+});
+
+app.use("/user", userRoutes);
