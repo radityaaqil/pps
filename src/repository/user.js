@@ -42,8 +42,26 @@ const GetByNameOrEmail = async (name, email) => {
   let db, query, values, result;
   try {
     db = await dbConfig.pool.connect();
-    query = `SELECT name, email FROM "user" u WHERE u.name = $1 OR u.email = $2`;
+    query = `SELECT name, email, password, role FROM "user" u WHERE u.name = $1 OR u.email = $2`;
     values = [name, email];
+    result = await db.query(query, values);
+  } catch (error) {
+    throw error;
+  } finally {
+    if (db) {
+      db.release();
+    }
+  }
+
+  return result;
+};
+
+const GetByEmailAndPassword = async (nameOrEmail, password) => {
+  let db, query, values, result;
+  try {
+    db = await dbConfig.pool.connect();
+    query = `SELECT id, name, email, role FROM "user" u WHERE (u.name = $1 OR u.email = $1) AND u.password = $2`;
+    values = [nameOrEmail, password];
     result = await db.query(query, values);
   } catch (error) {
     throw error;
@@ -109,4 +127,5 @@ module.exports = {
   GetByID,
   Insert,
   Update,
+  GetByEmailAndPassword,
 };

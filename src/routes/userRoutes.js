@@ -10,5 +10,6 @@ Router.get(
   jwtAuth.VerifyLastToken,
   userHandler.VerifyAccount
 );
+Router.post("/login", userHandler.Login);
 
 module.exports = Router;

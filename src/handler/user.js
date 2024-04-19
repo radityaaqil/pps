@@ -46,7 +46,33 @@ const VerifyAccount = async (req, res) => {
   }
 };
 
+const Login = async (req, res) => {
+  try {
+    let user = await userService.Login(req.body);
+    if (user.error) {
+      return res.status(400).send({
+        success: false,
+        data: null,
+        message: user.error,
+      });
+    }
+    res.set("Authorization", `Bearer ` + user.token);
+    return res.status(200).send({
+      success: true,
+      data: user.data,
+      message: "Successfully logged in",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      data: null,
+      message: ErrConst.ErrorInternalServer,
+    });
+  }
+};
+
 module.exports = {
   Register,
   VerifyAccount,
+  Login,
 };
