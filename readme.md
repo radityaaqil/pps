@@ -1,1 +1,1 @@
-readme readme readme
+Run DB Migration --> db-migrate up initialize
