@@ -60,9 +60,10 @@ const Login = async (req, res) => {
     return res.status(200).send({
       success: true,
       data: user.data,
-      message: "Successfully logged in",
+      message: "Account successfully logged in",
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).send({
       success: false,
       data: null,

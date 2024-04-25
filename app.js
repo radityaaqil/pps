@@ -2,7 +2,11 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT;
-const { userRoutes } = require("./src/routes");
+const {
+  userRoutes,
+  programRoutes,
+  assignationRoutes,
+} = require("./src/routes");
 
 app.use(express.json());
 
@@ -15,3 +19,4 @@ app.listen(port, () => {
 });
 
 app.use("/user", userRoutes);
+app.use("/admin/program", programRoutes, assignationRoutes);

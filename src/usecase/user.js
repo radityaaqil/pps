@@ -1,12 +1,12 @@
 const { userRepo } = require("../repository/index");
 const { ErrConst } = require("../constant");
-const { bcrypt, myCache, jwtAuth, email } = require("../helper");
+const { bcrypt, myCache, email } = require("../helper");
+const { jwtAuth } = require("../middleware");
 
 const Register = async (userData) => {
   try {
     // Check user
     let user = await userRepo.GetByNameOrEmail(userData.name, userData.email);
-    console.log(user);
     if (user.rows.length) {
       return ErrConst.ErrorUsernameOrEmailHasBeenTaken;
     }

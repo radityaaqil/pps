@@ -1,7 +1,7 @@
 const express = require("express");
 const Router = express.Router();
 const { userHandler } = require("../handler");
-const { jwtAuth } = require("../helper");
+const { jwtAuth } = require("../middleware");
 
 Router.post("/register", userHandler.Register);
 Router.get(
