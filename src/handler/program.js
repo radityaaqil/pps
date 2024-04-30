@@ -11,6 +11,7 @@ const Insert = async (req, res) => {
         message: result.error,
       });
     }
+
     return res.status(200).send({
       success: true,
       data: result.data,
@@ -49,7 +50,59 @@ const GetDetail = async (req, res) => {
   }
 };
 
+const StartProgram = async (req, res) => {
+  try {
+    let result = await programService.StartProgram(req.params.id);
+    if (result.error) {
+      return res.status(400).send({
+        success: false,
+        data: null,
+        message: result.error,
+      });
+    }
+
+    return res.status(200).send({
+      success: true,
+      data: result.data,
+      message: "Program successfully started",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      data: null,
+      message: ErrConst.ErrorInternalServer,
+    });
+  }
+};
+
+const EndProgram = async (req, res) => {
+  try {
+    let result = await programService.EndProgram(req.params.id);
+    if (result.error) {
+      return res.status(400).send({
+        success: false,
+        data: null,
+        message: result.error,
+      });
+    }
+
+    return res.status(200).send({
+      success: true,
+      data: result.data,
+      message: "Program successfully ended",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      data: null,
+      message: ErrConst.ErrorInternalServer,
+    });
+  }
+};
+
 module.exports = {
   Insert,
   GetDetail,
+  StartProgram,
+  EndProgram,
 };

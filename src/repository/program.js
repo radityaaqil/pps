@@ -9,20 +9,18 @@ const Insert = async (data) => {
             name,
             start_date,
             end_date,
-            status,
             frequency,
             monitoring_method,
             kpi,
             result,
             enforcement_method,
             created_by
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       `;
     values = [
       data.name,
       data.start_date,
       data.end_date,
-      data.status,
       data.frequency,
       data.monitoring_method,
       data.kpi,
@@ -74,7 +72,27 @@ const GetByID = async (id) => {
   }
 };
 
+const UpdateStatus = async (status, id) => {
+  let db, query, values;
+  try {
+    db = await dbConfig.pool.connect();
+    query = `UPDATE "program" SET status = $1 WHERE id = $2`;
+    values = [status, id];
+    await db.query(query, values);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  } finally {
+    if (db) {
+      db.release();
+    }
+  }
+
+  return;
+};
+
 module.exports = {
   Insert,
   GetByID,
+  UpdateStatus,
 };

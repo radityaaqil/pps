@@ -1,5 +1,5 @@
 const { programRepo } = require("../repository");
-const { ErrConst } = require("../constant");
+const { ErrConst, ProgramConst } = require("../constant");
 
 const Insert = async (data) => {
   try {
@@ -25,7 +25,29 @@ const GetDetail = async (id) => {
   }
 };
 
+const StartProgram = async (id) => {
+  try {
+    await programRepo.UpdateStatus(ProgramConst.StartProgramStatus, id);
+    return { data: null, error: null };
+  } catch (error) {
+    console.log(error);
+    throw { data: null, error: error };
+  }
+};
+
+const EndProgram = async (id) => {
+  try {
+    await programRepo.UpdateStatus(ProgramConst.EndProgramStatus, id);
+    return { data: null, error: null };
+  } catch (error) {
+    console.log(error);
+    throw { data: null, error: error };
+  }
+};
+
 module.exports = {
   Insert,
   GetDetail,
+  StartProgram,
+  EndProgram,
 };

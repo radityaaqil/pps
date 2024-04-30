@@ -6,6 +6,7 @@ const {
   userRoutes,
   programRoutes,
   assignationRoutes,
+  activityRoutes,
 } = require("./src/routes");
 
 app.use(express.json());
@@ -19,4 +20,5 @@ app.listen(port, () => {
 });
 
 app.use("/user", userRoutes);
+app.use("/activity", activityRoutes);
 app.use("/admin/program", programRoutes, assignationRoutes);
