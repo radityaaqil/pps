@@ -50,7 +50,7 @@ const Login = async (req, res) => {
   try {
     let user = await userService.Login(req.body);
     if (user.error) {
-      return res.status(400).send({
+      return res.status(200).send({
         success: false,
         data: null,
         message: user.error,

@@ -4,6 +4,7 @@
     "user": "yourDatabaseUser",
     "password": "yourDatabasePassword",
     "host": "yourDatabaseHost",
-    "database": "yourDatabaseName"
+    "database": "yourDatabaseName",
+    "port": "youtDatabasePort"
   }
 }

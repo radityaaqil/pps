@@ -61,7 +61,10 @@ const VerifyAccount = async (userData) => {
 
 const Login = async (userData) => {
   try {
-    let user = await userRepo.GetByNameOrEmail(userData.name, userData.email);
+    let user = await userRepo.GetByNameOrEmail(
+      userData.username,
+      userData.username
+    );
     if (user.rows.length == 0) {
       return { data: null, token: null, error: ErrConst.ErrorUserNotFound };
     }

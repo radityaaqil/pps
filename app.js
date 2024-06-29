@@ -7,8 +7,11 @@ const {
   programRoutes,
   assignationRoutes,
   activityRoutes,
+  reportRoutes,
 } = require("./src/routes");
 
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -22,3 +25,4 @@ app.listen(port, () => {
 app.use("/user", userRoutes);
 app.use("/activity", activityRoutes);
 app.use("/admin/program", programRoutes, assignationRoutes);
+app.use("/report", reportRoutes);

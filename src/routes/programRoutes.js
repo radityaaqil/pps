@@ -3,17 +3,15 @@ const Router = express.Router();
 const { programHandler } = require("../handler");
 const { jwtAuth } = require("../middleware");
 
-Router.post("/insert", jwtAuth.VerifyTokenAdmin, programHandler.Insert);
-Router.get("/detail/:id", jwtAuth.VerifyTokenAdmin, programHandler.GetDetail);
+Router.post("/", jwtAuth.VerifyTokenAdmin, programHandler.Insert);
+Router.patch("/:id", jwtAuth.VerifyTokenAdmin, programHandler.Update);
+Router.get("/:id", jwtAuth.VerifyTokenAdmin, programHandler.GetDetail);
+Router.get("/", jwtAuth.VerifyTokenAdmin, programHandler.GetList);
 Router.patch(
-  "/start-program/:id",
+  "/start/:id",
   jwtAuth.VerifyTokenAdmin,
   programHandler.StartProgram
 );
-Router.patch(
-  "/end-program/:id",
-  jwtAuth.VerifyTokenAdmin,
-  programHandler.EndProgram
-);
+Router.patch("/end/:id", jwtAuth.VerifyTokenAdmin, programHandler.EndProgram);
 
 module.exports = Router;

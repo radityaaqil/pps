@@ -32,6 +32,7 @@ create table "program" (
 	start_date timestamptz not null,
 	end_date timestamptz not null,
 	status varchar(50) default 'CREATED',
+	background text default '',
 	frequency jsonb,
 	monitoring_method jsonb,
 	kpi jsonb,
@@ -50,12 +51,23 @@ create table activity (
 	pic varchar(100) not null,
 	remark text,
 	status varchar(50) default 'CREATED',
+	start_date timestamptz,
+	end_date timestamptz,
 	created_at timestamptz default now(),
 	created_by varchar(100),
 	updated_at timestamptz,
 	updated_by varchar(100),
 	primary key (id),
 	foreign key(program_id) references "program"(id)
+);
+
+create table report (
+	id bigserial not null,
+	activity_id int not null,
+	attachments text[] default '{}',
+	remark text default '',
+	primary key (id),
+	foreign key(activity_id) references activity(id)
 );
 
 create table user_assignation (

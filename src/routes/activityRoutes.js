@@ -3,6 +3,7 @@ const Router = express.Router();
 const { activityHandler } = require("../handler");
 const { jwtAuth } = require("../middleware");
 
-Router.post("/insert", jwtAuth.VerifyToken, activityHandler.Insert);
+Router.post("/", jwtAuth.VerifyToken, activityHandler.Insert);
+Router.patch("/:id", jwtAuth.VerifyToken, activityHandler.Update);
 
 module.exports = Router;
