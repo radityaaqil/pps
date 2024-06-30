@@ -19,7 +19,7 @@ const SendEmail = async (userData, tokenEmail, templateDir, title, route) => {
 
     //Email
     const host =
-      process.env.NODE_ENV === "production" ? "" : "http://localhost:8080";
+      process.env.NODE_ENV === "production" ? "" : "http://localhost:3000";
     const link = `${host}/${route}/${tokenEmail}`;
 
     let filepath = path.resolve(__dirname, templateDir);
